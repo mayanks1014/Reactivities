@@ -24,6 +24,7 @@ namespace Reactivities
                 {
                     var context = services.GetService<AppDbContext>();
                     context.Database.Migrate();
+                    Seed.SeedData(context);
                 }
                 catch(Exception ex)
                 {
@@ -31,6 +32,7 @@ namespace Reactivities
                     logger.LogError(ex, "Error Occured while migrating");
                 }
             }
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
