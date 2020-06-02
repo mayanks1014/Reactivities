@@ -1,9 +1,10 @@
 ﻿using Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext: IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions options): base(options)
         {
@@ -18,5 +19,7 @@ namespace Persistence
 
             base.OnModelCreating(modelBuilder);
         }
+
+        
     }
 }

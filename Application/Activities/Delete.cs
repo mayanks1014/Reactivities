@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Errors;
+using MediatR;
 using Persistence;
 using System;
 using System.Threading;
@@ -24,7 +25,7 @@ namespace Application.Activities
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 var activity = await _context.Activities.FindAsync(request.Id);
-                if (activity == null) throw new Exception("Could not find activity to delete");
+                if (activity == null) throw new RestException(System.Net.HttpStatusCode.NotFound,"Could not find activity to delete");
 
                 _context.Activities.Remove(activity);
                 var success = await _context.SaveChangesAsync();
